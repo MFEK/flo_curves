@@ -74,7 +74,7 @@ where L::Point: Coordinate2D {
 
     let divisor                 = (y4-y3)*(x2-x1) - (x4-x3)*(y2-y1);
 
-    if divisor.abs() > f64::EPSILON {
+    if divisor.abs() > 2.0e-12 {
         let ua                  = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / divisor;
 
         Some(L::Point::from_components(&[

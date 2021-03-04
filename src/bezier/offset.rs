@@ -120,8 +120,8 @@ where   CurveIn:        NormalCurve+BezierCurve,
             // Collinear normals
             let divide_point    = 0.5;
 
-            //let param = ArcLengthParameterization::from(curve);
-            //let divide_point = param.parameterize(0.5);
+            let param = ArcLengthParameterization::from(curve);
+            let divide_point = param.parameterize(0.5);
 
             let mid_offset      = initial_offset + (final_offset - initial_offset) * divide_point;
             let left_curve      = curve.subsection(0.0, divide_point);
@@ -148,8 +148,8 @@ where   CurveIn:        NormalCurve+BezierCurve,
         if distance_ratio < 0.9 && depth < MAX_DEPTH {
             let divide_point    = 0.5;
 
-            //let param = ArcLengthParameterization::from(curve);
-            //let divide_point = param.parameterize(0.5);
+            let param = ArcLengthParameterization::from(curve);
+            let divide_point = param.parameterize(0.5);
 
             let mid_offset      = initial_offset + (final_offset - initial_offset) * divide_point;
             let left_curve      = curve.subsection(0.0, divide_point);
@@ -238,8 +238,8 @@ impl ArcLengthParameterization
         let mut output = Vec::new();
         // TODO: this is an arbitrary number and should be replaced with something more robust
         // TODO: preferably a tolerance value
-        let arclen_cuts = 200;
-        let max_cuts = 200 + 1;
+        let arclen_cuts = 100;
+        let max_cuts = 100 + 1;
 
         let mut prev_point = evaluable.point_at_pos(0.0);
         let mut sum = 0.0;

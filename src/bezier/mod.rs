@@ -32,6 +32,7 @@ mod solve;
 mod overlaps;
 mod intersection;
 mod characteristics;
+mod offset_lms;
 
 pub mod path;
 
@@ -51,5 +52,6 @@ pub use self::solve::*;
 pub use self::overlaps::*;
 pub use self::intersection::*;
 pub use self::characteristics::*;
+pub use self::offset_lms::*;
 
 pub use super::geo::*;

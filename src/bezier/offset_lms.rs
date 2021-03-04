@@ -76,4 +76,4 @@ where   Curve:          BezierCurveFactory+NormalCurve,
 
     // Generate a curve using the sample points
     fit_curve(&sample_points, max_error)
-}``s
+}

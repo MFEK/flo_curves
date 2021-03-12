@@ -17,7 +17,7 @@ use std::iter;
 pub fn offset_lms_sampling<Curve, OffsetFn>(curve: &Curve, offset_for_t: OffsetFn, subdivisions: u32, max_error: f64) -> Option<Vec<Curve>>
 where   Curve:          BezierCurveFactory+NormalCurve,
         Curve::Point:   Normalize+Coordinate2D,
-        OffsetFn:       Fn(f64) -> f64 {
+        OffsetFn:       Fn(f64) -> (f64, f64) {
     // Subdivide the curve by its major features
     let sections: SmallVec<[_; 4]>  = match features_for_curve(curve, 0.01) {
         CurveFeatures::DoubleInflectionPoint(t1, t2)  => {
@@ -67,10 +67,11 @@ where   Curve:          BezierCurveFactory+NormalCurve,
     let sample_points       = sections
         .map(|t| {
             let original_point  = curve.point_at_pos(t);
+            let unit_tangent    = curve.tangent_at_pos(t).to_unit_vector();
             let unit_normal     = curve.normal_at_pos(t).to_unit_vector();
-            let offset          = offset_for_t(t);
+            let (normal_offset, tangent_offset)  = offset_for_t(t);
 
-            original_point + (unit_normal * offset)
+            original_point + (unit_normal * normal_offset) + (unit_tangent * tangent_offset)
         })
         .collect::<Vec<_>>();
 

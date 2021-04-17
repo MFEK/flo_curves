@@ -1,3 +1,5 @@
+use crate::consts::SMALL_DISTANCE;
+
 use super::fit::*;
 use super::basis::*;
 use super::solve::*;
@@ -79,7 +81,7 @@ pub trait BezierCurve: Geo+Clone+Sized {
     ///
     #[inline]
     fn t_for_point(&self, point: &Self::Point) -> Option<f64> {
-        solve_curve_for_t(self, point)
+        solve_curve_for_t(self, point, SMALL_DISTANCE*50.)
     }
 
     ///

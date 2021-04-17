@@ -1,3 +1,5 @@
+use crate::consts::SMALL_DISTANCE;
+
 use super::fat_line::*;
 use super::curve_line::*;
 use super::super::solve::*;
@@ -35,7 +37,7 @@ where C::Point: 'a+Coordinate2D {
 
     let curve_intersections = ray_intersections.into_iter()
         .filter_map(|(curved_t, _ray_t, pos)| {
-            let linear_t = solve_curve_for_t(linear_section, &pos);
+            let linear_t = solve_curve_for_t(linear_section, &pos, SMALL_DISTANCE*50.);
 
             linear_t.map(|linear_t| (linear_t, curved_t))
         })

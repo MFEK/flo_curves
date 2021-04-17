@@ -5,8 +5,6 @@ use super::super::consts::*;
 use roots::{find_roots_quadratic, find_roots_cubic, Roots};
 use smallvec::*;
 
-const CLOSE_ENOUGH: f64 = SMALL_DISTANCE * 50.0;
-
 ///
 /// Solves for t in a single dimension for a bezier curve (finds the point(s) where the basis
 /// function evaluates to p)
@@ -45,7 +43,7 @@ pub fn solve_basis_for_t(w1: f64, w2: f64, w3: f64, w4: f64, p: f64) -> SmallVec
 /// Given a point that is close to or on the specified bezier curve, solves the 't' value that can
 /// be used to retrieve it
 ///
-pub fn solve_curve_for_t<C: BezierCurve>(curve: &C, point: &C::Point) -> Option<f64> {
+pub fn solve_curve_for_t<C: BezierCurve>(curve: &C, point: &C::Point, CLOSE_ENOUGH: f64) -> Option<f64> {
     let p1              = curve.start_point();
     let (p2, p3)        = curve.control_points();
     let p4              = curve.end_point();
